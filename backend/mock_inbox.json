@@ -1,0 +1,162 @@
+[
+  {
+    "id": "email-01",
+    "sender": "alice.fernandez@productify.com",
+    "recipient": "me@example.com",
+    "subject": "Urgent: Presentation Slides Needed",
+    "body": "Hi,\n\nCould you send me the final version of the Q4 presentation slides by tomorrow morning? We have a meeting with the leadership team at 10 AM.\n\nAlso, please confirm if the financial projections have been reviewed.\n\nThanks,\nAlice",
+    "timestamp": "2024-11-15T09:30:00Z"
+  },
+  {
+    "id": "email-02",
+    "sender": "newsletter@techupdates.com",
+    "recipient": "me@example.com",
+    "subject": "Your Weekly AI & Tech Newsletter",
+    "body": "Hello,\n\nHere are the top AI and technology stories this week:\n- Open-source LLM adoption increases\n- Major breakthroughs in robotics\n- Quantum hardware updates\n\nStay tuned for more!",
+    "timestamp": "2024-11-14T07:12:00Z"
+  },
+  {
+    "id": "email-03",
+    "sender": "rahul@finanalytics.in",
+    "recipient": "me@example.com",
+    "subject": "Budget File Approval Needed",
+    "body": "Hi,\n\nI’ve attached the updated Q1 budget file. Please review the numbers and approve before Monday so we can share it with procurement.\n\nRegards,\nRahul",
+    "timestamp": "2024-11-12T14:20:00Z"
+  },
+  {
+    "id": "email-04",
+    "sender": "events@university.edu",
+    "recipient": "me@example.com",
+    "subject": "You're Invited: Annual Tech Symposium",
+    "body": "Dear Student,\n\nWe are excited to invite you to the Annual Tech Symposium on November 20th at the Main Auditorium.\n\nWorkshops include:\n- Autonomous Systems\n- Cybersecurity Trends\n- AI and Ethics\n\nRegards,\nTech Club",
+    "timestamp": "2024-11-10T10:00:00Z"
+  },
+  {
+    "id": "email-05",
+    "sender": "manager@productify.com",
+    "recipient": "me@example.com",
+    "subject": "Request for Sprint-5 Update",
+    "body": "Hey,\n\nCan you send me the latest update on Sprint-5 items? The client review is scheduled for tomorrow.\n\nPlease highlight any blockers.\n\nThanks.",
+    "timestamp": "2024-11-13T16:45:00Z"
+  },
+  {
+    "id": "email-06",
+    "sender": "promo@randomoffers.com",
+    "recipient": "me@example.com",
+    "subject": "🎉 Congratulations! You’ve won a FREE iPhone!",
+    "body": "Click the link below to claim your prize.\nThis offer expires in 3 hours!",
+    "timestamp": "2024-11-01T05:50:00Z"
+  },
+  {
+    "id": "email-07",
+    "sender": "teamlead@productify.com",
+    "recipient": "me@example.com",
+    "subject": "PR #102 Review Required",
+    "body": "Hello,\n\nCould you review PR #102 before 3 PM today? We need to merge it before today's deployment.\n\nThanks,\nTeam Lead",
+    "timestamp": "2024-11-12T11:00:00Z"
+  },
+  {
+    "id": "email-08",
+    "sender": "noreply@linkedin.com",
+    "recipient": "me@example.com",
+    "subject": "New Job Recommendations for You",
+    "body": "Hi,\n\nWe found new job postings that match your profile. Check them out on LinkedIn!",
+    "timestamp": "2024-11-11T08:00:00Z"
+  },
+  {
+    "id": "email-09",
+    "sender": "john.williams@example.com",
+    "recipient": "me@example.com",
+    "subject": "Appreciation",
+    "body": "Hey,\n\nThanks for helping me with the onboarding process today. Really appreciate it!\n\nRegards,\nJohn",
+    "timestamp": "2024-11-12T12:15:00Z"
+  },
+  {
+    "id": "email-10",
+    "sender": "notifications@securebank.com",
+    "recipient": "me@example.com",
+    "subject": "Your Monthly Account Statement is Ready",
+    "body": "Dear Customer,\n\nYour bank statement for October is now available. Login to your account to download the PDF.\n\nThank you,\nSecure Bank",
+    "timestamp": "2024-11-10T06:15:00Z"
+  },
+  {
+    "id": "email-11",
+    "sender": "professor.miller@university.edu",
+    "recipient": "me@example.com",
+    "subject": "Reminder: Assignment Submission",
+    "body": "Hello,\n\nThis is a reminder that your research assignment is due by Friday midnight.\n\nRegards,\nProf. Miller",
+    "timestamp": "2024-11-12T09:00:00Z"
+  },
+  {
+    "id": "email-12",
+    "sender": "support@companyhelpdesk.com",
+    "recipient": "me@example.com",
+    "subject": "Ticket #2381 Resolved",
+    "body": "Hello,\n\nYour ticket #2381 regarding VPN connectivity has been resolved. Let us know if the issue persists.\n\nHelpdesk Team",
+    "timestamp": "2024-11-07T03:30:00Z"
+  },
+  {
+    "id": "email-13",
+    "sender": "client.relations@alphaenterprises.com",
+    "recipient": "me@example.com",
+    "subject": "Contract Discussion Required",
+    "body": "Hi,\n\nCan we discuss a few points regarding the service contract tomorrow? I am available between 2 PM to 5 PM.\n\nRegards,\nClient Relations",
+    "timestamp": "2024-11-11T13:40:00Z"
+  },
+  {
+    "id": "email-14",
+    "sender": "mentor@careerpath.com",
+    "recipient": "me@example.com",
+    "subject": "Scheduling Mentorship Session",
+    "body": "Hi,\n\nHappy to help with your career planning. Let's schedule a session this week.\n\nLet me know your availability.\n\nBest,\nYour Mentor",
+    "timestamp": "2024-11-08T04:20:00Z"
+  },
+  {
+    "id": "email-15",
+    "sender": "github@notifications.com",
+    "recipient": "me@example.com",
+    "subject": "Your Repo Got Starred ⭐",
+    "body": "Someone just starred your GitHub repository!\nCheck it out on GitHub.",
+    "timestamp": "2024-11-13T09:10:00Z"
+  },
+  {
+    "id": "email-16",
+    "sender": "marketing@shopsmart.in",
+    "recipient": "me@example.com",
+    "subject": "Mega Sale! Up to 70% Off!",
+    "body": "Hi Shopper,\n\nDon't miss our mega-sale with discounts up to 70% on electronics, fashion, and more!",
+    "timestamp": "2024-11-09T06:10:00Z"
+  },
+  {
+    "id": "email-17",
+    "sender": "hr@company.com",
+    "recipient": "me@example.com",
+    "subject": "Document Submission Reminder",
+    "body": "Dear Employee,\n\nPlease submit your KYC documents by Friday to complete the HR verification process.\n\nRegards,\nHR Team",
+    "timestamp": "2024-11-12T05:30:00Z"
+  },
+  {
+    "id": "email-18",
+    "sender": "system@cloudservices.net",
+    "recipient": "me@example.com",
+    "subject": "Server Downtime Notice",
+    "body": "Hello,\n\nOur servers will undergo maintenance on November 18th from 2 AM to 4 AM UTC. Expect intermittent downtime.\n\nRegards,\nCloud Services",
+    "timestamp": "2024-11-09T18:22:00Z"
+  },
+  {
+    "id": "email-19",
+    "sender": "linda@example.com",
+    "recipient": "me@example.com",
+    "subject": "Lunch Tomorrow?",
+    "body": "Hey,\n\nAre you free for lunch tomorrow? Let me know! 😊",
+    "timestamp": "2024-11-12T10:45:00Z"
+  },
+  {
+    "id": "email-20",
+    "sender": "reminder@appsuite.ai",
+    "recipient": "me@example.com",
+    "subject": "Daily Reminder",
+    "body": "Your productivity report is ready. Review today's completed and pending tasks in your dashboard.",
+    "timestamp": "2024-11-14T06:00:00Z"
+  }
+]
