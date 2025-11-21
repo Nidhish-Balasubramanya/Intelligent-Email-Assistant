@@ -1,25 +1,8 @@
-# Prompt-Driven Email Productivity Agent  
-A full-stack AI-powered system that ingests emails, categorizes them, extracts actionable items, assists users with summarization and task queries, and generates draft replies based on customizable prompts.  
-Built using Streamlit (frontend), FastAPI (backend), PostgreSQL/SQLite (database), and Gemini LLM (LLM engine).
+# Prompt-Driven Email Productivity Agent
 
----
-
-## Table of Contents
-1. Project Overview  
-2. Features  
-3. System Architecture  
-4. Tech Stack  
-5. Folder Structure  
-6. Backend (FastAPI)  
-7. Frontend (Streamlit)  
-8. Database Schema  
-9. LLM Prompt System  
-10. API Endpoints  
-11. Running Locally  
-12. Deployment Guide  
-13. Future Enhancements  
-
----
+A full-stack AI system that ingests emails, categorizes them, extracts
+action items, supports inbox reasoning, and generates draft replies
+using customizable prompts.
 
 ## 1. Project Overview
 This project implements a Prompt-Driven Email Productivity Agent that automates email understanding and assists users with inbox management. The system loads emails (mock or real), processes them using customizable LLM prompt templates, and provides intelligent features such as categorization, action extraction, summarization, email drafting, and inbox-wide reasoning.
@@ -75,7 +58,121 @@ This project is designed to satisfy all functional requirements defined in the a
 
 ---
 
-## 3. System Architecture
+##  3. Setup Instructions
+
+### 3.1 Clone Repository
+
+    git clone <your-repo-url>
+    cd OceanAI
+
+### 3.2 Create Virtual Environment
+
+    python -m venv venv
+    source venv/bin/activate   # Windows: venv\Scripts\activate
+
+### 3.3 Install Dependencies
+
+    pip install -r backend/requirements.txt
+    pip install -r frontend/requirements.txt
+
+### 3.4 Set Environment Variables
+
+Create `.env` inside **backend/**:
+
+    GEMINI_API_KEY=your_key_here
+    DATABASE_URL=sqlite:///./emails.db
+
+------------------------------------------------------------------------
+
+##  4. How to Run the Backend (FastAPI)
+
+### Start Backend Server
+
+    cd backend
+    uvicorn app.main:app --reload --port 7000
+
+Backend will run at:\
+👉 **http://localhost:7000**
+
+------------------------------------------------------------------------
+
+## 5. How to Run the UI (Streamlit)
+
+### Start Frontend
+
+    cd frontend
+    streamlit run app.py
+
+Frontend will run at:\
+👉 **http://localhost:8501**
+
+------------------------------------------------------------------------
+
+## 6. How to Load the Mock Inbox
+
+On first launch: - The UI automatically checks if emails exist. - If
+empty, it will load **mock_emails.json** from the backend.
+
+Manual loading (via API):
+
+    POST /api/inbox/load
+
+From UI: - Go to **Inbox** page\
+- Click **Load Mock Inbox** (if shown)
+
+------------------------------------------------------------------------
+
+## 7. How to Configure Prompts
+
+Navigate to **Prompts Panel** in the Streamlit sidebar.
+
+Editable prompt templates: - Categorization Prompt\
+- Action Item Extraction Prompt\
+- Draft Reply Prompt\
+- Summarization Prompt\
+- Custom Query Prompt
+
+Each template supports variables such as:
+
+    {email_body}
+    {user_query}
+    {tone}
+
+Prompts are stored in the database and persist across restarts.
+
+------------------------------------------------------------------------
+
+## 8. Usage Examples
+
+### 🔹 8.1 Categorize & Extract Actions From All Emails
+
+UI → Inbox → **Process All Emails**
+
+Backend API:
+
+    POST /api/emails/process/{email_id}
+
+### 🔹 8.2 Summarize an Email
+
+Agent Page → Select Email → Ask:
+
+    "Summarize this email."
+
+### 🔹 8.3 Get Action Items
+
+    "What tasks do I need to complete?"
+
+### 🔹 8.4 Generate a Draft Reply
+
+    "Draft a polite reply thanking them and accepting the offer."
+
+### 🔹 8.5 Inbox‑Wide Query (No Email Selected)
+
+    "Show me all urgent emails."
+
+------------------------------------------------------------------------
+
+## 9. System Architecture
 
 ### Components
 - Frontend: Streamlit  
@@ -91,7 +188,7 @@ This project is designed to satisfy all functional requirements defined in the a
 
 ---
 
-## 4. Tech Stack
+## 10. Tech Stack
 
 ### Frontend
 - Streamlit  
@@ -112,7 +209,7 @@ This project is designed to satisfy all functional requirements defined in the a
 
 ---
 
-## 5. Folder Structure
+## 11. Folder Structure
 ```
 OceanAI/
 │
@@ -140,7 +237,7 @@ OceanAI/
 
 ---
 
-## 6. Backend (FastAPI)
+## 12. Backend (FastAPI)
 
 ### Responsibilities
 - Email ingestion  
@@ -160,7 +257,7 @@ OceanAI/
 
 ---
 
-## 7. Frontend (Streamlit)
+## 13. Frontend (Streamlit)
 
 ### Pages
 1. Inbox  
@@ -176,7 +273,7 @@ OceanAI/
 
 ---
 
-## 8. Database Schema
+## 14. Database Schema
 
 ### Email Table
 - id  
@@ -210,7 +307,7 @@ OceanAI/
 
 ---
 
-## 9. LLM Prompt System
+## 15. LLM Prompt System
 Each prompt stored in DB and used dynamically:
 - Categorization  
 - Action item extraction  
@@ -226,7 +323,7 @@ Supported variables:
 
 ---
 
-## 10. API Endpoints
+## 16 API Endpoints
 
 ### Inbox
 - POST `/api/inbox/load`  
@@ -245,52 +342,10 @@ Supported variables:
 
 ### Admin
 - POST `/api/admin/reset`  
-
 ---
 
-## 11. Running Locally
 
-### Create virtual environment
-```
-python -m venv venv
-source venv/bin/activate  
-```
-
-### Install dependencies
-```
-pip install -r backend/requirements.txt
-pip install -r frontend/requirements.txt
-```
-
-### Start Backend
-```
-uvicorn app.main:app --reload --port 7000
-```
-
-### Start Frontend
-```
-streamlit run frontend/app.py
-```
-
----
-
-## 12. Deployment Guide
-
-### Recommended Deployment: Railway  
-Deploy backend, frontend, and Postgres database on Railway.
-
-Steps:
-1. Push project to GitHub  
-2. Create Railway project  
-3. Add Postgres plugin  
-4. Deploy backend service from `backend/`  
-5. Deploy frontend service from `frontend/`  
-6. Set required environment variables  
-7. Redeploy and access public URLs  
-
----
-
-## 13. Future Enhancements
+## 17 Future Enhancements
 - Gmail API ingestion  
 - OAuth authentication  
 - Attachment parsing  
@@ -300,4 +355,5 @@ Steps:
 - Email scheduling  
 
 ---
+
 
