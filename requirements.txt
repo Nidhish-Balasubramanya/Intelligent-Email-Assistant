@@ -1,1 +1,7 @@
-fds
+fastapi
+uvicorn[standard]
+pydantic
+SQLAlchemy
+python-dotenv
+requests
+google-generativeai
