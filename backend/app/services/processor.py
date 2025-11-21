@@ -9,8 +9,8 @@ It uses stored prompt templates + Gemini LLM to:
 """
 
 from sqlalchemy.orm import Session
-from app.models import Email, ProcessedEmail, PromptTemplate
-from app.services.llm_adapter import GeminiLLM
+from backend.app.models import Email, ProcessedEmail, PromptTemplate
+from backend.app.services.llm_adapter import GeminiLLM
 import json
 
 llm = GeminiLLM()
@@ -129,3 +129,4 @@ def process_email(email_id: str, db: Session):
         "reason": reason,
         "action_items": action_items
     }
+
