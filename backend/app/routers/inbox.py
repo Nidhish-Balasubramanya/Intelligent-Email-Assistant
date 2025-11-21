@@ -23,6 +23,16 @@ BACKEND_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))
 # Path to mock_inbox.json
 MOCK_PATH = os.path.join(BACKEND_DIR, "mock_inbox.json")
 
+
+# --------- NEW: GET INBOX ROUTE (FIX) ---------
+@router.get("/")
+def get_inbox(db: Session = Depends(get_db)):
+    """Return all emails in the database."""
+    emails = db.query(models.Email).all()
+    return emails
+# ----------------------------------------------
+
+
 @router.post("/load")
 def load_mock_inbox(db: Session = Depends(get_db)):
     """Load emails from mock_inbox.json into the database."""
@@ -32,11 +42,10 @@ def load_mock_inbox(db: Session = Depends(get_db)):
     inserted = 0
 
     for entry in inbox_data:
-        # Convert timestamp string → datetime object
         ts = entry.get("timestamp")
         
         if ts:
-            ts = ts.replace("Z", "+00:00")  # convert Zulu time to offset format
+            ts = ts.replace("Z", "+00:00")
             ts = datetime.fromisoformat(ts)
         
         email = models.Email(
@@ -52,7 +61,3 @@ def load_mock_inbox(db: Session = Depends(get_db)):
     db.commit()
 
     return {"status": "success", "inserted": inserted}
-
-
-
-
