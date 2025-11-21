@@ -4,7 +4,7 @@ from datetime import datetime
 from sqlalchemy import Column, String, Text, DateTime, JSON, ForeignKey
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Text, DateTime, JSON, ForeignKey
+from sqlalchemy import Column, String, Text, DateTime, JSON, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 from backend.app.db import Base
 from sqlalchemy.orm import relationship
@@ -15,16 +15,19 @@ def gen_id(prefix=""):
 
 class Email(Base):
     __tablename__ = "emails"
-    id = Column(String, primary_key=True, default=lambda: gen_id("email-"))
-    sender = Column(String, nullable=False)
-    recipient = Column(String, nullable=False)
-    subject = Column(String, nullable=True)
-    body = Column(Text, nullable=True)
-    timestamp = Column(DateTime, default=datetime.utcnow)
-    thread_id = Column(String, nullable=True)
 
-    processed = relationship("ProcessedEmail", back_populates="email", uselist=False)
-    drafts = relationship("Draft", back_populates="email")
+    id = Column(String, primary_key=True)
+    sender = Column(String)
+    recipient = Column(String)
+    subject = Column(String)
+    body = Column(Text)
+    timestamp = Column(DateTime)
+    thread_id = Column(String)
+
+    __table_args__ = (
+        UniqueConstraint("id", name="uq_email_id"),
+    )
+
 
 class ProcessedEmail(Base):
     __tablename__ = "processed_emails"
@@ -57,4 +60,5 @@ class Draft(Base):
     saved_at = Column(DateTime, default=datetime.utcnow)
 
     email = relationship("Email", back_populates="drafts")
+
 
