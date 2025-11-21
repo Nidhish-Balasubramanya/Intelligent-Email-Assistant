@@ -1,6 +1,6 @@
 # frontend/utils.py
 import requests
-BASE_URL = "http://127.0.0.1:8000/api"
+BASE_URL = "https://intelligent-email-assistant.onrender.com"
 
 def get_emails():
     try:
@@ -49,3 +49,4 @@ def get_drafts():
         return r.json()
     except:
         return []
+
