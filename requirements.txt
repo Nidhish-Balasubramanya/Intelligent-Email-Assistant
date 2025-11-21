@@ -7,3 +7,4 @@ requests
 google-generativeai
 streamlit
 requests
+psycopg2-binary
