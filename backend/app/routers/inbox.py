@@ -10,14 +10,16 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from backend.app.db import get_db
 from backend.app import models
+import os
 
 router = APIRouter()
 
+file_path = os.path.join(os.path.dirname(__file__), "..", "mock_inbox.json")
 
 @router.post("/load")
 def load_mock_inbox(db: Session = Depends(get_db)):
     """Load emails from mock_inbox.json into the database."""
-    with open("backend.mock_inbox.json", "r", encoding="utf-8") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         inbox_data = json.load(f)
 
     inserted = 0
@@ -43,5 +45,6 @@ def load_mock_inbox(db: Session = Depends(get_db)):
     db.commit()
 
     return {"status": "success", "inserted": inserted}
+
 
 
