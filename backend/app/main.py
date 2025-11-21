@@ -1,11 +1,11 @@
 # backend/app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.db import Base, engine
-from app.routers import health, emails, prompts, agent, drafts
-from app.seed_prompts import seed_default_prompts
-from app.db import SessionLocal
-from app.routers import inbox
+from backend.app.db import Base, engine
+from backend.app.routers import health, emails, prompts, agent, drafts
+from backend.app.seed_prompts import seed_default_prompts
+from backend.app.db import SessionLocal
+from backend.app.routers import inbox
 
 
 # Create DB tables (safe for dev)
@@ -42,3 +42,4 @@ app.include_router(drafts.router, prefix="/api/drafts", tags=["drafts"])
 @app.get("/")
 def root():
     return {"status": "ok", "service": "email-agent-backend"}
+
