@@ -7,11 +7,12 @@ BACKEND_URL = "https://intelligent-email-assistant.onrender.com"
 
 def get_emails():
     try:
-        r = requests.get(f"{BACKEND_URL}/api/inbox")
+        r = requests.get(f"{BACKEND_URL}/api/emails")
         r.raise_for_status()
         return r.json()
     except Exception:
         return []
+
 
 def load_mock_inbox():
     try:
@@ -73,3 +74,4 @@ def get_drafts():
         return r.json()
     except:
         return []
+
