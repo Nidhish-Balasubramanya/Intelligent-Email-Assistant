@@ -2,8 +2,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from sqlalchemy.orm import Session
-from app import schemas, models
-from app.db import get_db
+from backend.app import schemas, models
+from backend.app.db import get_db
 
 router = APIRouter()
 
@@ -18,3 +18,4 @@ def create_draft(payload: schemas.DraftCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=List[schemas.DraftOut])
 def list_drafts(db: Session = Depends(get_db)):
     return db.query(models.Draft).all()
+
