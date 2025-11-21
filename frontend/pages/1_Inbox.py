@@ -18,7 +18,7 @@ if not emails or len(emails) == 0:
     try:
         requests.post(f"{BACKEND_URL}/api/inbox/load")
         st.success("Mock inbox loaded!")
-        st.rerun()
+        st.stop()
     except Exception as e:
         st.error(f"Failed to load inbox: {e}")
         st.stop()
@@ -100,4 +100,5 @@ for email in emails:
             st.switch_page("pages/2_Email_Viewer.py")
 
         st.markdown("---")
+
 
