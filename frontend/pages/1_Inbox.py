@@ -11,15 +11,18 @@ st.markdown("### Manage and process your inbox emails with AI.")
 emails = get_emails()
 
 # ------------ AUTO LOAD INBOX IF EMPTY ------------
+BACKEND_URL = "https://intelligent-email-assistant.onrender.com"
+
 if not emails or len(emails) == 0:
     st.warning("Inbox empty. Loading mock inbox…")
     try:
-        requests.post("http://127.0.0.1:8000/api/inbox/load")
+        requests.post(f"{BACKEND_URL}/api/inbox/load")
         st.success("Mock inbox loaded!")
         st.rerun()
     except Exception as e:
         st.error(f"Failed to load inbox: {e}")
         st.stop()
+
 # --------------------------------------------------
 
 if isinstance(emails, dict) and "detail" in emails:
@@ -97,3 +100,4 @@ for email in emails:
             st.switch_page("pages/2_Email_Viewer.py")
 
         st.markdown("---")
+
