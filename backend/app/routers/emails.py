@@ -2,9 +2,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from app.db import get_db
-from app import models, schemas
-from app.services.processor import process_email
+from backend.app.db import get_db
+from backend.app import models, schemas
+from backend.app.services.processor import process_email
 
 
 router = APIRouter()
@@ -61,3 +61,4 @@ def process_single_email(email_id: str, db: Session = Depends(get_db)):
     - Optional action extraction
     """
     return process_email(email_id, db)
+
