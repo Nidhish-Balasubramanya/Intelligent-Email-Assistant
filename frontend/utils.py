@@ -66,4 +66,10 @@ def agent_query(payload):
 
 # ------------------ DRAFTS ------------------
 
-def get_dr_
+def get_drafts():
+    try:
+        r = requests.get(f"{BACKEND_URL}/api/drafts")
+        r.raise_for_status()
+        return r.json()
+    except:
+        return []
