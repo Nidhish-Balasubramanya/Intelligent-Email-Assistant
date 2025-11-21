@@ -1,8 +1,8 @@
 # backend/app/services/agent_service.py
 from typing import Optional, Any, Dict
 from sqlalchemy.orm import Session
-from app.services.llm_adapter import GeminiLLM
-from app import models
+from backend.app.services.llm_adapter import GeminiLLM
+from backend.app import models
 import json
 
 llm = GeminiLLM()
@@ -76,3 +76,4 @@ def handle_agent_query(db: Session, email_id: Optional[str], prompt_type: str, u
         except:
             parsed_json = None
     return {"result_text": llm_response, "parsed_json": parsed_json, "draft_id": draft_id}
+
