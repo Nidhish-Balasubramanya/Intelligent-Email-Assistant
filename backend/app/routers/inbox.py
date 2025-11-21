@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from backend.app.db import get_db
 from backend.app import models
 import os
+from dateutil import parser
 
 router = APIRouter()
 
@@ -67,3 +68,4 @@ def load_mock_inbox(db: Session = Depends(get_db)):
     db.commit()
 
     return {"status": "loaded", "inserted": inserted}
+
