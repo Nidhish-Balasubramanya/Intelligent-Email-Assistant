@@ -14,12 +14,19 @@ import os
 
 router = APIRouter()
 
-file_path = os.path.join(os.path.dirname(__file__), "..", "mock_inbox.json")
+# Find absolute path of inbox.py
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Go up twice: routers → app → backend
+BACKEND_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))
+
+# Path to mock_inbox.json
+MOCK_PATH = os.path.join(BACKEND_DIR, "mock_inbox.json")
 
 @router.post("/load")
 def load_mock_inbox(db: Session = Depends(get_db)):
     """Load emails from mock_inbox.json into the database."""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(MOCK_PATH, "r", encoding="utf-8") as f:
         inbox_data = json.load(f)
 
     inserted = 0
@@ -45,6 +52,7 @@ def load_mock_inbox(db: Session = Depends(get_db)):
     db.commit()
 
     return {"status": "success", "inserted": inserted}
+
 
 
 
