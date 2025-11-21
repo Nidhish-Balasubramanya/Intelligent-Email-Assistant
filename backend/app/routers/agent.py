@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Any, Dict
 from sqlalchemy.orm import Session
-from app.db import get_db
-from app.services.agent_service import handle_agent_query
+from backend.app.db import get_db
+from backend.app.services.agent_service import handle_agent_query
 
 router = APIRouter()
 
@@ -58,3 +58,4 @@ def query_agent(payload: AgentRequest, db: Session = Depends(get_db)):
         "parsed_json": result.get("parsed_json"),
         "draft_id": result.get("draft_id")
     }
+
