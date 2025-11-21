@@ -16,17 +16,22 @@ def gen_id(prefix=""):
 class Email(Base):
     __tablename__ = "emails"
 
-    id = Column(String, primary_key=True)
+    id = Column(String, primary_key=True, index=True)
     sender = Column(String)
     recipient = Column(String)
     subject = Column(String)
     body = Column(Text)
     timestamp = Column(DateTime)
-    thread_id = Column(String)
+    thread_id = Column(String, nullable=True)
 
-    __table_args__ = (
-        UniqueConstraint("id", name="uq_email_id"),
+    # FIX: add missing relationship
+    processed = relationship(
+        "ProcessedEmail",
+        back_populates="email",
+        cascade="all, delete-orphan",
+        uselist=False
     )
+
 
 
 class ProcessedEmail(Base):
@@ -60,5 +65,6 @@ class Draft(Base):
     saved_at = Column(DateTime, default=datetime.utcnow)
 
     email = relationship("Email", back_populates="drafts")
+
 
 
