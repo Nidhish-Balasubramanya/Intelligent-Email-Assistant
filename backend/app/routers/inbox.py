@@ -35,13 +35,18 @@ def get_inbox(db: Session = Depends(get_db)):
 
 @router.post("/load")
 def load_mock_inbox(db: Session = Depends(get_db)):
-    """Load emails from mock_inbox.json into the database."""
-    
-    # Prevent duplicate loads
+    """Load emails from mock_inbox.json into the database, but only once."""
+
+    # Prevent re-loading if emails already exist
     existing = db.query(models.Email).count()
     if existing > 0:
-        return {"status": "skipped", "reason": "inbox already initialized"}
+        return {
+            "status": "skipped",
+            "reason": "Inbox already initialized",
+            "existing": existing
+        }
 
+    # Load JSON file
     with open(MOCK_PATH, "r", encoding="utf-8") as f:
         inbox_data = json.load(f)
 
@@ -60,9 +65,14 @@ def load_mock_inbox(db: Session = Depends(get_db)):
             body=entry.get("body"),
             timestamp=ts
         )
+
         db.add(email)
         inserted += 1
 
     db.commit()
 
-    return {"status": "success", "inserted": inserted}
+    return {
+        "status": "success",
+        "inserted": inserted
+    }
+
