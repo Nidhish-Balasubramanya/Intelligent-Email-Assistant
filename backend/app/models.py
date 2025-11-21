@@ -8,7 +8,7 @@ from sqlalchemy import Column, String, Text, DateTime, JSON, ForeignKey
 from sqlalchemy.orm import relationship
 from backend.app.db import Base
 from sqlalchemy.orm import relationship
-from app.db import Base
+from backend.app.db import Base
 
 def gen_id(prefix=""):
     return f"{prefix}{uuid.uuid4().hex[:8]}"
@@ -57,3 +57,4 @@ class Draft(Base):
     saved_at = Column(DateTime, default=datetime.utcnow)
 
     email = relationship("Email", back_populates="drafts")
+
