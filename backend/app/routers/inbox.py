@@ -1,12 +1,11 @@
-# backend/app/routers/inbox.py
 import json
 from datetime import datetime
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from sqlalchemy import exists
 from backend.app.db import get_db
 from backend.app import models
 import os
-from dateutil import parser
 
 router = APIRouter()
 
@@ -14,73 +13,38 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))
 MOCK_PATH = os.path.join(BACKEND_DIR, "mock_inbox.json")
 
-
-@router.get("")
-def get_inbox(db: Session = Depends(get_db)):
-    emails = db.query(models.Email).all()
-    return emails
-
-
 @router.post("/load")
 def load_mock_inbox(db: Session = Depends(get_db)):
-    """
-    Idempotent loader:
-    - Reads mock_inbox.json
-    - Skips records already in DB (using sender+subject+timestamp as dedupe key)
-    - Inserts only new records
-    """
+    """Insert emails from mock_inbox.json, but skip if ID already exists."""
     with open(MOCK_PATH, "r", encoding="utf-8") as f:
         inbox_data = json.load(f)
 
-    # Build set of existing keys for fast lookup
-    existing_keys = set()
-    for e in db.query(models.Email.sender, models.Email.subject, models.Email.timestamp).all():
-        # e is a tuple (sender, subject, timestamp)
-        # normalize timestamp to iso string if datetime
-        sender, subject, ts = e
-        ts_key = ts.isoformat() if hasattr(ts, "isoformat") else (ts or "")
-        existing_keys.add((sender or "", subject or "", ts_key))
-
     inserted = 0
-    skipped = 0
 
     for entry in inbox_data:
-        sender = entry.get("sender") or ""
-        subject = entry.get("subject") or ""
-        ts_str = entry.get("timestamp") or None
+        email_id = entry["id"]  # <- Must exist in JSON
 
-        # robust timestamp parsing
-        ts = None
-        if ts_str:
-            try:
-                ts = parser.isoparse(ts_str)
-            except Exception:
-                # fallback: keep raw string as-is (will insert as null or string depending on model)
-                ts = None
-
-        ts_key = ts.isoformat() if ts is not None else (ts_str or "")
-
-        key = (sender, subject, ts_key)
-        if key in existing_keys:
-            skipped += 1
+        # Skip if already exists
+        exists_q = db.query(exists().where(models.Email.id == email_id)).scalar()
+        if exists_q:
             continue
 
-        # Create and add
+        ts = entry.get("timestamp")
+        if ts:
+            ts = ts.replace("Z", "+00:00")
+            ts = datetime.fromisoformat(ts)
+
         email = models.Email(
-            sender=sender,
-            recipient=entry.get("recipient"),
-            subject=subject,
-            body=entry.get("body"),
+            id=email_id,
+            sender=entry["sender"],
+            recipient=entry["recipient"],
+            subject=entry["subject"],
+            body=entry["body"],
             timestamp=ts
         )
+
         db.add(email)
-        existing_keys.add(key)
         inserted += 1
 
-    if inserted > 0:
-        db.commit()
-    else:
-        # no new rows to commit; ensure session clean
-        db.rollback()
-
-    return {"status": "done", "inserted": inserted, "skipped": skipped}
+    db.commit()
+    return {"status": "success", "inserted": inserted}
