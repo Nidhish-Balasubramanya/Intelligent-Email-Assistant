@@ -1,32 +1,59 @@
-# backend/app/db.py
+# backend/app/models.py
+import uuid
+from datetime import datetime
+from sqlalchemy import Column, String, Text, DateTime, JSON, ForeignKey
+import uuid
+from datetime import datetime
+from sqlalchemy import Column, String, Text, DateTime, JSON, ForeignKey
+from sqlalchemy.orm import relationship
+from backend.app.db import Base
+from sqlalchemy.orm import relationship
+from app.db import Base
 
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+def gen_id(prefix=""):
+    return f"{prefix}{uuid.uuid4().hex[:8]}"
 
-# Read DATABASE_URL from Render environment
-DATABASE_URL = os.getenv("DATABASE_URL")
+class Email(Base):
+    __tablename__ = "emails"
+    id = Column(String, primary_key=True, default=lambda: gen_id("email-"))
+    sender = Column(String, nullable=False)
+    recipient = Column(String, nullable=False)
+    subject = Column(String, nullable=True)
+    body = Column(Text, nullable=True)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    thread_id = Column(String, nullable=True)
 
-# Render PostgreSQL URLs start with postgres:// (SQLAlchemy requires postgresql://)
-if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
+    processed = relationship("ProcessedEmail", back_populates="email", uselist=False)
+    drafts = relationship("Draft", back_populates="email")
 
-# Create engine for PostgreSQL
-engine = create_engine(DATABASE_URL, future=True)
+class ProcessedEmail(Base):
+    __tablename__ = "processed_emails"
+    id = Column(String, primary_key=True, default=lambda: gen_id("proc-"))
+    email_id = Column(String, ForeignKey("emails.id"), nullable=False, unique=True)
+    category = Column(String, nullable=True)
+    reason = Column(String, nullable=True)
+    action_items = Column(JSON, nullable=True)  # list of objects
+    raw_llm_response = Column(Text, nullable=True)
+    processed_at = Column(DateTime, default=datetime.utcnow)
 
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine,
-    future=True
-)
+    email = relationship("Email", back_populates="processed")
 
-Base = declarative_base()
+class PromptTemplate(Base):
+    __tablename__ = "prompts"
+    id = Column(String, primary_key=True, default=lambda: gen_id("prompt-"))
+    name = Column(String, nullable=False)
+    type = Column(String, nullable=False)  # categorization|action|reply|other
+    template = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-# Dependency used by API routes
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+class Draft(Base):
+    __tablename__ = "drafts"
+    id = Column(String, primary_key=True, default=lambda: gen_id("draft-"))
+    email_id = Column(String, ForeignKey("emails.id"), nullable=True)
+    subject = Column(String, nullable=True)
+    body = Column(Text, nullable=True)
+    draft_metadata = Column(JSON, nullable=True)  # renamed here
+    saved_at = Column(DateTime, default=datetime.utcnow)
+
+    email = relationship("Email", back_populates="drafts")
