@@ -1,23 +1,29 @@
 # backend/app/db.py
+
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
+from sqlalchemy.orm import sessionmaker, declarative_base
 
-load_dotenv()
+# Read DATABASE_URL from Render environment
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./email_agent.db")
+# Render PostgreSQL URLs start with postgres:// (SQLAlchemy requires postgresql://)
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
 
-# For SQLite, connect_args required
-connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
+# Create engine for PostgreSQL
+engine = create_engine(DATABASE_URL, future=True)
 
-engine = create_engine(DATABASE_URL, connect_args=connect_args, future=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine,
+    future=True
+)
 
 Base = declarative_base()
 
-# simple helper to get a DB session (used in dependencies later)
+# Dependency used by API routes
 def get_db():
     db = SessionLocal()
     try:
