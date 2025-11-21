@@ -8,8 +8,8 @@ import json
 from datetime import datetime
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.db import get_db
-from app import models
+from backend.app.db import get_db
+from backend.app import models
 
 router = APIRouter()
 
@@ -43,3 +43,4 @@ def load_mock_inbox(db: Session = Depends(get_db)):
     db.commit()
 
     return {"status": "success", "inserted": inserted}
+
