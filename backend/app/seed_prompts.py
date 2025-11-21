@@ -5,7 +5,7 @@ It only inserts them if they don't already exist.
 """
 
 from sqlalchemy.orm import Session
-from app.models import PromptTemplate
+from backend.app.models import PromptTemplate
 
 
 def seed_default_prompts(db: Session):
@@ -107,3 +107,4 @@ def seed_default_prompts(db: Session):
             db.add(PromptTemplate(**prompt))
     
     db.commit()
+
