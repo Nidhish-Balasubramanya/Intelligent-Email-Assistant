@@ -17,7 +17,7 @@ router = APIRouter()
 @router.post("/load")
 def load_mock_inbox(db: Session = Depends(get_db)):
     """Load emails from mock_inbox.json into the database."""
-    with open("mock_inbox.json", "r", encoding="utf-8") as f:
+    with open("backend.mock_inbox.json", "r", encoding="utf-8") as f:
         inbox_data = json.load(f)
 
     inserted = 0
@@ -43,4 +43,5 @@ def load_mock_inbox(db: Session = Depends(get_db)):
     db.commit()
 
     return {"status": "success", "inserted": inserted}
+
 
