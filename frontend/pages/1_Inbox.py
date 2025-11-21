@@ -1,56 +1,53 @@
 import streamlit as st
-from utils import get_emails, process_email
-import requests
+from utils import get_emails, process_email, load_mock_inbox
 import datetime as datetime
 
 st.title("📥 Inbox")
-
 st.markdown("### Manage and process your inbox emails with AI.")
 
-# Load emails
+# Load inbox
 emails = get_emails()
 
-# ------------ AUTO LOAD INBOX IF EMPTY ------------
-BACKEND_URL = "https://intelligent-email-assistant.onrender.com"
-
+# Show Load Inbox button if empty
 if not emails or len(emails) == 0:
-    st.warning("Inbox empty. Loading mock inbox…")
-    try:
-        requests.post(f"{BACKEND_URL}/api/inbox/load")
-        st.success("Mock inbox loaded!")
-        st.stop()
-    except Exception as e:
-        st.error(f"Failed to load inbox: {e}")
-        st.stop()
+    st.warning("Inbox is empty.")
 
-# --------------------------------------------------
+    if st.button("📨 Load Mock Inbox", type="primary"):
+        ok = load_mock_inbox()
+        if ok:
+            st.success("Mock inbox loaded!")
+            st.rerun()
+        else:
+            st.error("Failed to load inbox. Check backend logs.")
+            st.stop()
 
+    st.stop()
+
+# If API returned an error
 if isinstance(emails, dict) and "detail" in emails:
     st.error("Error fetching emails.")
     st.stop()
 
-# --- Global 'Process All' Button ---
+# Process all button
 if st.button("⚙ Process All Emails", use_container_width=True):
     progress = st.progress(0)
     status = st.empty()
 
     total = len(emails)
-
     for i, email in enumerate(emails):
         status.write(f"Processing: {email['subject']}")
         try:
             process_email(email["id"])
         except Exception as e:
-            status.write(f"Error processing {email['subject']}: {e}")
+            status.write(f"Error: {e}")
 
         progress.progress((i + 1) / total)
 
-    st.success("All emails processed successfully!")
+    st.success("All emails processed!")
     st.rerun()
 
 st.markdown("---")
 
-# Category badge colors
 CATEGORY_COLORS = {
     "Important": "#ff4d4d",
     "Newsletter": "#4CAF50",
@@ -59,11 +56,10 @@ CATEGORY_COLORS = {
     "Unknown": "#BDBDBD"
 }
 
-# Display email list
+# Display emails
 for email in emails:
     with st.container():
         st.markdown(f"## {email['subject']}")
-
         st.markdown(f"**From:** {email['sender']}")
 
         ts = email.get("timestamp")
@@ -77,28 +73,16 @@ for email in emails:
         st.write(email["body"][:180] + "...")
 
         # Category tag
-        if email.get("category"):
-            color = CATEGORY_COLORS.get(email["category"], "#444")
-            st.markdown(
-                f"<span style='background:{color}; padding:6px 12px; "
-                f"border-radius:8px; color:white; font-size:0.9rem;'>"
-                f"{email['category']}</span>",
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                "<span style='background:#555; padding:6px 12px; "
-                "border-radius:8px; color:white; font-size:0.9rem;'>Not processed</span>",
-                unsafe_allow_html=True
-            )
+        cat = email.get("category")
+        color = CATEGORY_COLORS.get(cat, "#555")
+        st.markdown(
+            f"<span style='background:{color}; padding:6px 12px; border-radius:8px; "
+            f"color:white; font-size:0.9rem;'>{cat or 'Not processed'}</span>",
+            unsafe_allow_html=True
+        )
 
-        st.write("")  # spacing
-
-        # Single 'View Details' button
         if st.button("View Details", key=email["id"], use_container_width=True):
             st.session_state["selected_email"] = email["id"]
             st.switch_page("pages/2_Email_Viewer.py")
 
         st.markdown("---")
-
-
