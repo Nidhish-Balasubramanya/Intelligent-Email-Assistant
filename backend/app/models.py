@@ -15,24 +15,16 @@ def gen_id(prefix=""):
 
 class Email(Base):
     __tablename__ = "emails"
-
-    id = Column(String, primary_key=True, index=True)
-    sender = Column(String)
-    recipient = Column(String)
-    subject = Column(String)
-    body = Column(Text)
-    timestamp = Column(DateTime)
+    id = Column(String, primary_key=True, default=lambda: gen_id("email-"))
+    sender = Column(String, nullable=False)
+    recipient = Column(String, nullable=False)
+    subject = Column(String, nullable=True)
+    body = Column(Text, nullable=True)
+    timestamp = Column(DateTime, default=datetime.utcnow)
     thread_id = Column(String, nullable=True)
 
-    # FIX: add missing relationship
-    processed = relationship(
-        "ProcessedEmail",
-        back_populates="email",
-        cascade="all, delete-orphan",
-        uselist=False
-    )
-
-
+    processed = relationship("ProcessedEmail", back_populates="email", uselist=False)
+    drafts = relationship("Draft", back_populates="email")
 
 class ProcessedEmail(Base):
     __tablename__ = "processed_emails"
@@ -65,6 +57,8 @@ class Draft(Base):
     saved_at = Column(DateTime, default=datetime.utcnow)
 
     email = relationship("Email", back_populates="drafts")
+
+
 
 
 
