@@ -3,6 +3,12 @@ import requests
 
 BACKEND_URL = "https://intelligent-email-assistant.onrender.com"
 
+def wake_backend():
+    try:
+        requests.get(f"{BACKEND_URL}/api/wakeup", timeout=2)
+    except:
+        pass
+
 # ------------------ INBOX ------------------
 
 def get_emails():
@@ -74,6 +80,7 @@ def get_drafts():
         return r.json()
     except:
         return []
+
 
 
 
