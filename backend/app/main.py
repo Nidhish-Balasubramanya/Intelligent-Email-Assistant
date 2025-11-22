@@ -43,3 +43,9 @@ app.include_router(drafts.router, prefix="/api/drafts", tags=["drafts"])
 def root():
     return {"status": "ok", "service": "email-agent-backend"}
 
+@app.get("/api/wakeup")
+def wakeup():
+    return {"status": "awake"}
+
+
+
