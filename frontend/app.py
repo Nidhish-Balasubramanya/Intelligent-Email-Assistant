@@ -18,8 +18,12 @@ Welcome to **OceanAI Email Agent**, your intelligent companion for email classif
 - 🔏 Fully editable Prompt Brain  
 - ⚙ Built with FastAPI + Streamlit + Gemini
 
-Use the sidebar to navigate through the application. But Please wait for the backend to warm up before proceeding.
+Use the sidebar to navigate through the application.
+
+Before using the application please warm up the backend by clicking on the below link and waiting for 2-3mins.
+st.markdown("[Click here](https://intelligent-email-assistant.onrender.com)")
 """)
-with st.spinner("Warming up backend…"):
-    wake_backend()
+
+
+
 
