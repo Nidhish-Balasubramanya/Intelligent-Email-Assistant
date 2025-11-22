@@ -1,5 +1,5 @@
 import streamlit as st
-
+from utils import wake_backend
 st.set_page_config(
     page_title="OceanAI Email Agent",
     page_icon="📨",
@@ -18,5 +18,8 @@ Welcome to **OceanAI Email Agent**, your intelligent companion for email classif
 - 🔏 Fully editable Prompt Brain  
 - ⚙ Built with FastAPI + Streamlit + Gemini
 
-Use the sidebar to navigate through the application.
+Use the sidebar to navigate through the application. But Please wait for the backend to warm up before proceeding.
 """)
+with st.spinner("Warming up backend…"):
+    wake_backend()
+
