@@ -27,12 +27,12 @@ def load_mock_inbox():
 
 def process_email(email_id):
     try:
-        payload = {"email_id": email_id}
-        r = requests.post(f"{BACKEND_URL}/api/emails/process", json=payload)
+        r = requests.post(f"{BACKEND_URL}/api/emails/process/{email_id}")
         r.raise_for_status()
         return r.json()
     except Exception as e:
         return {"detail": str(e)}
+
 
 
 # ------------------ PROMPTS ------------------
@@ -74,5 +74,6 @@ def get_drafts():
         return r.json()
     except:
         return []
+
 
 
