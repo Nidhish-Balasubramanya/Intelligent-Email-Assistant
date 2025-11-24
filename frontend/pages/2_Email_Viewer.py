@@ -16,11 +16,11 @@ if not email:
     st.error("Email not found.")
     st.stop()
 
-# ---------- UI Layout ----------
+# UI Layout
 st.markdown(f"## {email['subject']}")
 st.markdown(f"**From:** {email['sender']}")
 
-# ----- Category Badge -----
+# Category Badge 
 CATEGORY_COLORS = {
     "Important": "#d9534f",
     "Newsletter": "#5cb85c",
@@ -74,4 +74,5 @@ else:
         result = process_email(email_id)
         st.session_state["processing_result"] = result
         st.rerun()
+
 
