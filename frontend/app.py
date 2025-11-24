@@ -10,7 +10,7 @@ st.title("📨 OceanAI – Intelligent Email Assistant")
 st.markdown("""
 Welcome to **OceanAI Email Agent**, your intelligent companion for email classification, task extraction, and automated reply drafting.
 
-### 🔧 Features
+###  Features
 - 📥 Load & view inbox emails  
 - 🧠 Automatic categorization & action item extraction  
 - 🤖 AI Agent for summaries, tasks, replies & custom queries  
@@ -24,6 +24,7 @@ Before using the application please warm up the backend by clicking on the below
 
 [warm up the backend](https://intelligent-email-assistant.onrender.com)
 """)
+
 
 
 
