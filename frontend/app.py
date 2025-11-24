@@ -6,7 +6,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📨 OceanAI – Intelligent Email Assistant")
+st.title("Intelligent Email Assistant")
 st.markdown("""
 Welcome to **OceanAI Email Agent**, your intelligent companion for email classification, task extraction, and automated reply drafting.
 
@@ -24,6 +24,7 @@ Before using the application please warm up the backend by clicking on the below
 
 [warm up the backend](https://intelligent-email-assistant.onrender.com)
 """)
+
 
 
 
