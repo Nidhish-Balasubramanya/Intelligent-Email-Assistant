@@ -1,18 +1,10 @@
-# backend/app/routers/prompts.py
-"""
-This router manages all Prompt Templates.
-Prompts define how the AI behaves and can be edited by the user.
-"""
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-
 from backend.app.db import get_db
 from backend.app import models, schemas
 
 router = APIRouter()
-
 
 @router.get("/", response_model=List[schemas.PromptOut])
 def list_prompts(db: Session = Depends(get_db)):
@@ -65,4 +57,5 @@ def delete_prompt(prompt_id: str, db: Session = Depends(get_db)):
     db.delete(prompt)
     db.commit()
     return {"status": "deleted", "id": prompt_id}
+
 
