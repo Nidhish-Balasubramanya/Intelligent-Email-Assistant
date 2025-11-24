@@ -1,4 +1,4 @@
-# Prompt-Driven Email Productivity Agent
+# Intelligent Email Assistant
 
 A full-stack AI system that ingests emails, categorizes them, extracts
 action items, supports inbox reasoning, and generates draft replies
