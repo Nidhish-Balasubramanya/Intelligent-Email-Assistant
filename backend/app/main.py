@@ -7,16 +7,12 @@ from backend.app.seed_prompts import seed_default_prompts
 from backend.app.db import SessionLocal
 from backend.app.routers import inbox
 
-
 # Create DB tables (safe for dev)
 Base.metadata.create_all(bind=engine)
 
 # Seed default prompts on startup
 with SessionLocal() as db:
     seed_default_prompts(db)
-
-    
-
 
 app = FastAPI(title="Email Productivity Agent - Backend")
 
@@ -32,7 +28,6 @@ app.add_middleware(
 )
 
 # include routers
-app.include_router(health.router, prefix="/api/health", tags=["health"])
 app.include_router(emails.router, prefix="/api/emails", tags=["emails"])
 app.include_router(prompts.router, prefix="/api/prompts", tags=["prompts"])
 app.include_router(agent.router, prefix="/api/agent", tags=["agent"])
@@ -46,6 +41,7 @@ def root():
 @app.get("/api/wakeup")
 def wakeup():
     return {"status": "awake"}
+
 
 
 
