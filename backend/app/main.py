@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.db import Base, engine
-from backend.app.routers import health, emails, prompts, agent, drafts
+from backend.app.routers import emails, prompts, agent, drafts
 from backend.app.seed_prompts import seed_default_prompts
 from backend.app.db import SessionLocal
 from backend.app.routers import inbox
@@ -40,6 +40,7 @@ def root():
 @app.get("/api/wakeup")
 def wakeup():
     return {"status": "awake"}
+
 
 
 
