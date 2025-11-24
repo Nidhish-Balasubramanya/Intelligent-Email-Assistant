@@ -211,28 +211,60 @@ Agent Page → Select Email → Ask:
 
 ## 11. Folder Structure
 ```
-OceanAI/
+intelligent-email-assistant/
 │
-│── backend/
-│     ├── app/
-│     │     ├── main.py
-│     │     ├── db.py
-│     │     ├── models.py
-│     │     ├── schemas.py
-│     │     ├── seed_prompts.py
-│     │     ├── services/
-│     │     └── routers/
-│     └── requirements.txt
+├── backend/
+│   ├── app/
+│   │   ├── __pycache__/
+│   │   │
+│   │   ├── routers/
+│   │   │   ├── __pycache__/
+│   │   │   ├── __init__.py
+│   │   │   ├── agent.py
+│   │   │   ├── drafts.py
+│   │   │   ├── emails.py
+│   │   │   ├── health.py
+│   │   │   ├── inbox.py
+│   │   │   └── prompts.py
+│   │   │
+│   │   ├── services/
+│   │   │   ├── __pycache__/
+│   │   │   ├── agent_service.py
+│   │   │   ├── llm_adapter.py
+│   │   │   ├── processor.py
+│   │   │   └── __init__.py
+│   │   │
+│   │   ├── main.py
+│   │   ├── db.py
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   ├── seed_prompts.py
+│   │   ├── email_agent.db
+│   │   ├── mock_inbox.json
+│   │   └── test.py
+│   │
+│   └── requirements.txt
 │
-│── frontend/
-│     ├── app.py
-│     ├── utils.py
-│     └── pages/
-│           ├── 1_Inbox.py
-│           ├── 2_Email_Viewer.py
-│           └── 3_Agent_Assistant.py
 │
-└── README.md
+├── frontend/
+│   ├── __pycache__/
+│   │
+│   ├── pages/
+│   │   ├── 1_Inbox.py
+│   │   ├── 2_Email_Viewer.py
+│   │   ├── 3_Agent_Assistant.py
+│   │   ├── 4_Prompt_Brain.py
+│   │   └── 5_Draft_Manager.py
+│   │
+│   ├── app.py
+│   ├── utils.py
+│   └── requirements.txt
+│
+│
+├── venv/
+│
+└── .env
+
 ```
 
 ---
