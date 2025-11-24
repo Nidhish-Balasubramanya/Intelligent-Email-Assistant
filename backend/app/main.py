@@ -13,7 +13,7 @@ Base.metadata.create_all(bind=engine)
 with SessionLocal() as db:
     seed_default_prompts(db)
 
-app = FastAPI(title="Email Productivity Agent - Backend")
+app = FastAPI(title="Intelligent Email Assistant - Backend")
 
 app.include_router(inbox.router, prefix="/api/inbox", tags=["inbox"])
 
@@ -40,6 +40,7 @@ def root():
 @app.get("/api/wakeup")
 def wakeup():
     return {"status": "awake"}
+
 
 
 
