@@ -5,9 +5,7 @@ import datetime as datetime
 st.title("📥 Inbox")
 st.markdown("### Load and process your inbox emails")
 
-# -------------------------
-# LOAD INBOX (Manual Only)
-# -------------------------
+# LOAD INBOX
 if st.button("📩 Load Inbox", use_container_width=True):
     ok = load_mock_inbox()
     if ok:
@@ -16,16 +14,14 @@ if st.button("📩 Load Inbox", use_container_width=True):
         st.error("Failed to load inbox.")
     st.rerun()
 
-# -------------------------
 # Fetch emails
-# -------------------------
 emails = get_emails()
 
 if not emails:
     st.info("No emails loaded. Click 'Load Inbox'.")
     st.stop()
 
-# --- Global 'Process All' Button ---
+#'Process All' Button 
 if st.button("⚙ Process All Emails", use_container_width=True):
     progress = st.progress(0)
     status = st.empty()
@@ -96,3 +92,4 @@ for email in emails:
             st.switch_page("pages/2_Email_Viewer.py")
 
         st.markdown("---")
+
