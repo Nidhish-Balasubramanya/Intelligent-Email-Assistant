@@ -7,14 +7,11 @@ load_dotenv()
 GEMINI_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_KEY)
 
-
 class GeminiLLM:
     def __init__(self, model_name="models/gemini-2.5-flash"):
         self.model = genai.GenerativeModel(model_name)
 
     def run(self, prompt: str, system_prompt: str = None, temperature: float = 0.2, max_tokens: int = 512):
-        print("🔥 USING UPDATED ADAPTER 🔥")
-
         """
         Sends a plain text prompt to Gemini.
         Includes a safety-bypass system header for synthetic emails.
@@ -47,4 +44,5 @@ class GeminiLLM:
 
         except Exception as e:
             return f"ERROR: {str(e)}"
+
 
