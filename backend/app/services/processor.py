@@ -1,5 +1,3 @@
-# backend/app/services/processor.py
-
 """
 This module contains the main email processing pipeline.
 It uses stored prompt templates + Gemini LLM to:
@@ -129,4 +127,5 @@ def process_email(email_id: str, db: Session):
         "reason": reason,
         "action_items": action_items
     }
+
 
