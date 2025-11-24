@@ -1,4 +1,3 @@
-# backend/app/services/agent_service.py
 from typing import Optional, Any, Dict
 from sqlalchemy.orm import Session
 from backend.app.services.llm_adapter import GeminiLLM
@@ -45,7 +44,8 @@ def handle_agent_query(db: Session, email_id: Optional[str], prompt_type: str, u
         filled = prompt_template.template.replace("{email_body}", context_text).replace("{tone}", tone or "professional").replace("{user_query}", user_query or "")
         llm_response = llm.run(filled, temperature=0.2, max_tokens=1200)
         return {"result_text": llm_response, "parsed_json": None}
-    # Per-email handling (existing logic)
+        
+    # Per-email handling
     email = db.get(models.Email, email_id)
     processed = db.query(models.ProcessedEmail).filter(models.ProcessedEmail.email_id == email_id).first()
     prompt_template = _get_prompt_by_type(db, prompt_type)
@@ -58,6 +58,7 @@ def handle_agent_query(db: Session, email_id: Optional[str], prompt_type: str, u
     llm_response = llm.run(filled, temperature=0.2, max_tokens=800)
     parsed_json = None
     draft_id = None
+    
     if prompt_type == "reply":
         try:
             parsed_json = json.loads(llm_response)
@@ -70,10 +71,12 @@ def handle_agent_query(db: Session, email_id: Optional[str], prompt_type: str, u
             db.commit()
             db.refresh(draft)
             draft_id = draft.id
+            
     if prompt_type == "tasks":
         try:
             parsed_json = json.loads(llm_response)
         except:
             parsed_json = None
     return {"result_text": llm_response, "parsed_json": parsed_json, "draft_id": draft_id}
+
 
