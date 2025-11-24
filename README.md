@@ -204,7 +204,7 @@ Agent Page → Select Email → Ask:
 - Google Generative AI SDK (Gemini LLM)
 
 ### Tools
-- Railway deployment  
+- Render deployment  
 - Docker-compatible project layout  
 
 ---
