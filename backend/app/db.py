@@ -1,5 +1,3 @@
-# backend/app/db.py
-
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
@@ -7,7 +5,6 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 # Read DATABASE_URL from Render environment
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Render PostgreSQL URLs start with postgres:// (SQLAlchemy requires postgresql://)
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
 
@@ -30,3 +27,4 @@ def get_db():
         yield db
     finally:
         db.close()
+
