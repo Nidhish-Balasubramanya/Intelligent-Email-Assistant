@@ -1,4 +1,3 @@
-# frontend/utils.py
 import requests
 
 BACKEND_URL = "https://intelligent-email-assistant.onrender.com"
@@ -9,7 +8,7 @@ def wake_backend():
     except:
         pass
 
-# ------------------ INBOX ------------------
+# INBOX
 
 def get_emails():
     try:
@@ -29,7 +28,7 @@ def load_mock_inbox():
         return False
 
 
-# ------------------ PROCESS EMAIL ------------------
+# PROCESS EMAIL 
 
 def process_email(email_id):
     try:
@@ -40,8 +39,7 @@ def process_email(email_id):
         return {"detail": str(e)}
 
 
-
-# ------------------ PROMPTS ------------------
+# PROMPTS 
 
 def get_prompt_templates():
     try:
@@ -60,7 +58,7 @@ def update_prompt(prompt_id, payload):
         return {"detail": str(e)}
 
 
-# ------------------ AGENT ------------------
+# AGENT 
 
 def agent_query(payload):
     try:
@@ -71,7 +69,7 @@ def agent_query(payload):
         return {"detail": str(e)}
 
 
-# ------------------ DRAFTS ------------------
+# DRAFTS
 
 def get_drafts():
     try:
@@ -80,6 +78,7 @@ def get_drafts():
         return r.json()
     except:
         return []
+
 
 
 
