@@ -1,4 +1,3 @@
-# frontend/pages/3_Agent_Assistant.py
 import streamlit as st
 from utils import get_emails, agent_query
 
@@ -95,3 +94,4 @@ if "agent_result" in st.session_state:
 
         else:
             st.write(res.get("result_text"))
+
