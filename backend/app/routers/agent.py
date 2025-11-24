@@ -1,4 +1,3 @@
-# backend/app/routers/agent.py
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Any, Dict
@@ -58,4 +57,5 @@ def query_agent(payload: AgentRequest, db: Session = Depends(get_db)):
         "parsed_json": result.get("parsed_json"),
         "draft_id": result.get("draft_id")
     }
+
 
