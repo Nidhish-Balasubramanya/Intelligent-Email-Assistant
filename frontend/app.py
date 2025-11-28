@@ -1,14 +1,14 @@
 import streamlit as st
 from utils import wake_backend
 st.set_page_config(
-    page_title="OceanAI Email Agent",
+    page_title="Email Agent",
     page_icon="📨",
     layout="wide"
 )
 
 st.title("Intelligent Email Assistant")
 st.markdown("""
-Welcome to **OceanAI Email Agent**, your intelligent companion for email classification, task extraction, and automated reply drafting.
+Welcome to **IEA**, your intelligent companion for email classification, task extraction, and automated reply drafting.
 
 ###  Features
 - 📥 Load & view inbox emails  
@@ -24,6 +24,7 @@ Before using the application please warm up the backend by clicking on the below
 
 [warm up the backend](https://intelligent-email-assistant.onrender.com)
 """)
+
 
 
 
